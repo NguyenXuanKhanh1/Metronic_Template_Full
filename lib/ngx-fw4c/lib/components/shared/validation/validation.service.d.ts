@@ -1,0 +1,43 @@
+import { RendererFactory2, EventEmitter } from '@angular/core';
+import { ValidationOption, ValidationAction, ClientValidator, SummaryError } from './validation.model';
+import { ValidationRule } from './validation.rule';
+import { Observable } from 'rxjs';
+import { DataService, ActionService } from '../services';
+export declare class ValidationService {
+    protected rendererFactory: RendererFactory2;
+    private _dataService;
+    private _actionService;
+    private validationRule;
+    onDestroy: EventEmitter<void>;
+    private elements;
+    private validator;
+    private errClass;
+    private styles;
+    private attributeName;
+    private renderer;
+    private relatedProviders;
+    private subscriptions;
+    private virtualValidationOptions;
+    constructor(rendererFactory: RendererFactory2, _dataService: DataService, _actionService: ActionService, validationRule: ValidationRule);
+    ngOnDestroy(): void;
+    init(model: {
+        validator: ClientValidator;
+    }): void;
+    updateAsync(relatedProvidersToRegister?: ValidationService[]): void;
+    executeAsync(validCallback: (errors?: SummaryError[]) => any, invalidCallback?: (errors?: SummaryError[]) => any): Observable<boolean>;
+    isValid(show?: boolean, focus?: boolean): boolean;
+    retrieveSummaryErrors(): Observable<SummaryError[]>;
+    commit(callback?: Function): Observable<boolean>;
+    setElementError(element: Element, action: ValidationAction, option: ValidationOption): string;
+    clearErrorItemElement(element: any, action: ValidationAction): void;
+    validateElement(element: any, option: ValidationOption): Observable<ValidationOption>;
+    private findElementOption;
+    private findErrorItemElement;
+    private findDynamicSequenceId;
+    private findErrorElement;
+    private registerElements;
+    private registerEvents;
+    private handleBlurEvent;
+    private syncErrorMessages;
+    private addRelatedProviders;
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FW4M": {
+    "FW4C": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FW4M",
+            "outputPath": "dist/FW4C",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,6 +28,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -67,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FW4M:build"
+            "browserTarget": "FW4C:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "FW4M:build:production"
+              "browserTarget": "FW4C:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FW4M:build"
+            "browserTarget": "FW4C:build"
           }
         },
         "test": {
@@ -93,6 +95,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -115,15 +119,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "FW4M:serve"
+            "devServerTarget": "FW4C:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "FW4M:serve:production"
+              "devServerTarget": "FW4C:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "FW4M"
+    }
+  },
+  "defaultProject": "FW4C"
 }

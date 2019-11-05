@@ -17,7 +17,33 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "fw4c": [
+        "dist/fw4c"
+      ],
+      "fw4c/*": [
+        "dist/fw4c/*"
+      ],
+      "validation": [
+        "dist/validation"
+      ],
+      "validation/*": [
+        "dist/validation/*"
+      ],
+      "ui": [
+        "dist/ui"
+      ],
+      "ui/*": [
+        "dist/ui/*"
+      ],
+      "ngx-fw4c": [
+        "dist/ngx-fw4c"
+      ],
+      "ngx-fw4c/*": [
+        "dist/ngx-fw4c/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

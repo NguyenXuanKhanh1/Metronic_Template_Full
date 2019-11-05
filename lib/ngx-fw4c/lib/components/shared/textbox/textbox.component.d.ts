@@ -1,0 +1,33 @@
+import { EventEmitter, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
+import { FormDirectorExtraItemDirective } from '../form';
+import { ActionService } from '../services/action.service';
+export declare class TextboxComponent implements OnDestroy, AfterViewInit {
+    private _actionService;
+    title: string;
+    model: string | number;
+    type: 'text' | 'currency' | 'phone' | 'email' | 'number' | 'password';
+    name: string;
+    placeholder: string;
+    readonly: boolean;
+    disabled: boolean;
+    maxCharacters: number;
+    minNumber: number;
+    maxNumber: number;
+    validationName: string;
+    validationScope: string;
+    direction: 'horizontal' | 'vertical';
+    alignVertical: boolean;
+    controlName: string;
+    description: string;
+    emitNullOnDestroy: boolean;
+    suffix: string;
+    item: any;
+    focus: boolean;
+    modelChange: EventEmitter<string | number>;
+    extraLabelItem: FormDirectorExtraItemDirective;
+    itemRef: ElementRef;
+    constructor(_actionService: ActionService);
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    submitNumeric(newValue: number): void;
+}

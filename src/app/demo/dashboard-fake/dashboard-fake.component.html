@@ -1,0 +1,8 @@
+<c-card>
+        <c-table [option]="option">
+            <ng-template let-item="item" #imageTemplate>
+                <img [src]="item.logo"/>
+                <!-- <h4>{{item.name}}</h4> -->
+            </ng-template>
+        </c-table>
+    </c-card>

@@ -1,0 +1,24 @@
+<c-card>
+    <c-tabs [displayMode]="'full'" (change)="changeTab($event)">
+        <c-tab [name]="'Danh mục'" [icon]="'fa fa-bell'">
+            <div class="col-xs-12">
+                <div class="col-xs-12" style="margin: 10px;">
+                    <c-dropdown-buttons [customClass]="'warning'" [icon]="'fa fa-twitter'"
+                        [title]="'Danh sách tổng hợp'">
+                        <c-dropdown-button [icon]="'fa fa-search'" [title]="'Danh sách nhân viên'">
+                        </c-dropdown-button>
+                        <c-dropdown-button [icon]="'fa fa-bell'" [title]="'Danh sách chứng chỉ'">
+                        </c-dropdown-button>
+                        <c-dropdown-button [icon]="'fa fa-home'" [title]="'Danh sách khác'"></c-dropdown-button>
+                    </c-dropdown-buttons>
+                </div>
+            </div>
+        </c-tab>
+        <c-tab [name]="'Người dùng'" [icon]="'fa fa-twitter'">
+            <c-daterange-picker></c-daterange-picker>
+        </c-tab>
+        <c-tab [name]="'Khác'" [icon]="'fa fa-search'">
+            <c-editor></c-editor>
+        </c-tab>
+    </c-tabs>
+</c-card>
