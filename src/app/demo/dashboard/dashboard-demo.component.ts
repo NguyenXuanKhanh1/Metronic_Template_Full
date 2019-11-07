@@ -10,6 +10,7 @@ import { TableOption, ModalService, DataService, TemplateViewModel, TableCompone
 
 export class DashboardDemoComponent implements OnInit {
   @ViewChild('imageTemplate', { static: true }) public imageTemplate: TemplateRef<any>;
+  @ViewChild("tableTemplate", { static: true }) public tableTemplate: TableComponent;
   public option: TableOption;
 
   constructor(
@@ -92,20 +93,24 @@ export class DashboardDemoComponent implements OnInit {
         },
         {
           icon: 'fa fa-remove',
-          executeAsync: () => {
+          executeAsync: (item) => {
+            this._modalService.showConfirmDialog(new ConfirmViewModel({
+              title: 'Delete Confirm',
+              message: 'Bạn đã chắc chắn với sự lựa chọn của mình chứ ?',
+              btnAcceptTitle: 'Ừm nè !',
+              acceptCallback: () => {
+                let delPos = data.indexOf(item);
+                this.option.localData().splice(delPos, 1);
+                this.tableTemplate.reload(true);
+              }
+            }));
           }
         },
         {
           icon: 'fa fa-search',
           executeAsync: (item, e, provider: TableComponent) => {
             provider.copy(item);
-            this._modalService.showConfirmDialog(new ConfirmViewModel({
-              title: 'Test',
-              message: 'abc?',
-              btnAcceptTitle: 'changed',
-              acceptCallback: () => {
-              }
-            }));
+            
           }
         },
         {

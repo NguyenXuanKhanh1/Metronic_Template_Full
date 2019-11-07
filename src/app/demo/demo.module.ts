@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { TabDemoComponent } from './tab';
 import { ValidationDemoComponent } from './validation';
-import { DashboardDemoComponent } from './dashboard';
-import { DashboardFakeComponent } from '../demo/dashboard-fake/dashboard-fake.component';
+import { DashboardDemoComponent } from './dashboard/index';
+import { DashboardFakeComponent } from './dashboard-fake/index';
 import { ButtonDemoComponent } from './button';
 import { FormsModule } from '@angular/forms';
 import { Framework4CModule } from 'ngx-fw4c';
@@ -22,7 +22,6 @@ const declarations = [
   entryComponents: declarations,
   imports: [
     FormsModule,
-    // HttpClient,
     Framework4CModule.forRoot()
   ]
 })

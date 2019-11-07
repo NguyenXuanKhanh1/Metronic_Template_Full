@@ -36,11 +36,7 @@ export class DashboardFakeComponent implements OnInit {
   }
 
   private initTable(): void {
-    // let fakedata = [];
-    // this._fakeService.getClub().subscribe(data => {
-    //   fakedata = data;
-    //   this.tableTemplate.reload().subscribe();
-    // });
+    var data = [];
     this.option = new TableOption({
       topButtons: [
         {
@@ -68,6 +64,18 @@ export class DashboardFakeComponent implements OnInit {
               })
             );
           }
+        },
+        {
+          icon: "fa fa-copy",
+          customClass: "danger",
+          title: () => "Copy",
+          executeAsync: (items, e, provider: TableComponent) => {
+            console.log(provider.selectedItems);
+            let copyItems = provider.selectedItems;
+            copyItems.forEach(element => {
+              provider.copy(element);
+            });
+          }
         }
       ],
       actions: [
@@ -79,12 +87,27 @@ export class DashboardFakeComponent implements OnInit {
         },
         {
           icon: "fa fa-remove",
-          executeAsync: (item, e, provider: TableComponent) => {
+          executeAsync: (items, e, provider: TableComponent) => {
             this._modalService.showConfirmDialog(new ConfirmViewModel({
               title: 'Delete Confirm',
-              message: 'Bạn chắc chắn muốn xóa cái này chứ ?'
-
+              message: 'Bạn chắc chắn muốn xóa cái này chứ ?',
+              btnAcceptTitle: "Ừm nè !",
+              btnCancelTitle: "Ứ ừ !",
+              acceptCallback: () => {
+                let delPos = items.indexOf(items);
+                console.log(delPos);
+                // this._fakeService.getClub(request)
+                this.option.localData().splice(delPos, 1);
+                this.tableTemplate.reload(true);
+              }
             }));
+          }
+        },
+        {
+          icon: "fa fa-diamond",
+          executeAsync: (items, e, provider: TableComponent) => {
+            // provider.copy(provider.selectedItems);
+            provider.copy(items);
           }
         },
         {
@@ -110,7 +133,6 @@ export class DashboardFakeComponent implements OnInit {
       ],
       inlineEdit: true,
       mode: TableMode.full,
-      // mode: TableMode.compact,
       searchFields: ["name", "age"],
       mainColumns: [
         {
@@ -176,9 +198,10 @@ export class DashboardFakeComponent implements OnInit {
       serviceProvider: {
         searchAsync: (request) => {
          // request.searchText ='test';
-         this.tableTemplate.setFilter('name','134');
-          return this._fakeService.getClub(request);
-     
+          // this.tableTemplate.setFilter('name',request.searchText);
+          const club = this._fakeService.getClub(request)
+          console.log(club)
+          return club;     
         }
       }
     });

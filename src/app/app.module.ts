@@ -18,7 +18,6 @@ import { DemoModule } from './demo';
     FormsModule,
     ReactiveFormsModule,
     DemoModule,
-    // HttpClient
   ],
   exports: [
     DemoModule

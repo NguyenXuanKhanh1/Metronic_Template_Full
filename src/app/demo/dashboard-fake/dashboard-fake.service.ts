@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnChanges, OnInit } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
 })
-export class DashboardFakeService {
+export class DashboardFakeService{
   constructor(private http: HttpClient) {}
   public items = [
     {
@@ -349,19 +349,15 @@ export class DashboardFakeService {
       Points: 5
     }
   ];
-  url = "http://localhost:3000";
-  getClub(request): Observable<any> {
+  url = 'http://localhost:3000/items';
+  public club: any = [];
+
+  getClub(request): Observable<any>{
     return of({
       success: true,
-      totalRecords: 100,
-      items: request.searchText
-        ? this.items.filter(s => s.name.indexOf(request.searchText) > -1)
-        : this.items
+      totalRecords: this.items.length,
+      items: this.items
     });
-    //return this.http.get(this.url);
   }
 
-  deleteClub(id: any): Observable<any> {
-    return this.http.delete(this.url + id);
-  }
 }
