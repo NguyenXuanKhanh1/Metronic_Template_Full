@@ -349,15 +349,18 @@ export class DashboardFakeService{
       Points: 5
     }
   ];
-  url = 'http://localhost:3000/items';
+  url = 'http://www.mocky.io/v2/5dc3cc723000000d523475cf';
   public club: any = [];
 
   getClub(request): Observable<any>{
-    return of({
-      success: true,
-      totalRecords: this.items.length,
-      items: this.items
-    });
+
+    return this.http.get(this.url);
+    
+    // return of({
+    //   success: true,
+    //   totalRecords: this.items.length,
+    //   items: this.items
+    // });
   }
 
 }

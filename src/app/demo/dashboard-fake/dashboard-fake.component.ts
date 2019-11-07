@@ -13,6 +13,7 @@ import {
 import { ButtonDemoComponent } from "..";
 import { of } from "rxjs";
 import { DashboardFakeService } from "./dashboard-fake.service";
+import { element } from "protractor";
 
 @Component({
   selector: "app-dashboard-fake",
@@ -36,7 +37,7 @@ export class DashboardFakeComponent implements OnInit {
   }
 
   private initTable(): void {
-    var data = [];
+
     this.option = new TableOption({
       topButtons: [
         {
@@ -73,8 +74,12 @@ export class DashboardFakeComponent implements OnInit {
             console.log(provider.selectedItems);
             let copyItems = provider.selectedItems;
             copyItems.forEach(element => {
-              provider.copy(element);
+              // provider.copy(element);
+              let elements = provider.items;
+              elements.unshift(element);
+              console.log(provider.items);
             });
+            // this.tableTemplate.reload(true);
           }
         }
       ],
@@ -87,20 +92,20 @@ export class DashboardFakeComponent implements OnInit {
         },
         {
           icon: "fa fa-remove",
-          executeAsync: (items, e, provider: TableComponent) => {
-            this._modalService.showConfirmDialog(new ConfirmViewModel({
-              title: 'Delete Confirm',
-              message: 'Bạn chắc chắn muốn xóa cái này chứ ?',
-              btnAcceptTitle: "Ừm nè !",
-              btnCancelTitle: "Ứ ừ !",
-              acceptCallback: () => {
-                let delPos = items.indexOf(items);
-                console.log(delPos);
-                // this._fakeService.getClub(request)
-                this.option.localData().splice(delPos, 1);
-                this.tableTemplate.reload(true);
-              }
-            }));
+          executeAsync: (item, e, provider: TableComponent) => {
+            this._modalService.showConfirmDialog(
+              new ConfirmViewModel({
+                title: "Delete Confirm",
+                message: "Bạn chắc chắn muốn xóa cái " + item.name + " chứ ?",
+                btnAcceptTitle: "Ừm nè !",
+                btnCancelTitle: "Ứ ừ !",
+                acceptCallback: () => {
+                  let element = provider.items;
+                  let delPos = element.indexOf(item);
+                  element.splice(delPos, 1);
+                }
+              })
+            );
           }
         },
         {
@@ -196,12 +201,10 @@ export class DashboardFakeComponent implements OnInit {
         }
       ],
       serviceProvider: {
-        searchAsync: (request) => {
-         // request.searchText ='test';
-          // this.tableTemplate.setFilter('name',request.searchText);
-          const club = this._fakeService.getClub(request)
-          console.log(club)
-          return club;     
+        searchAsync: request => {
+          // request.searchText ='test';
+          // this.tableTemplate.setFilter('name',request.searchText)
+          return this._fakeService.getClub(request);
         }
       }
     });
