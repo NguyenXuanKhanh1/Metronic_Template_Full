@@ -109,22 +109,18 @@ export class DashboardFakeComponent implements OnInit {
           }
         },
         {
-          icon: "fa fa-diamond",
-          executeAsync: (items, e, provider: TableComponent) => {
-            // provider.copy(provider.selectedItems);
-            provider.copy(items);
-          }
-        },
-        {
           icon: "fa fa-search",
           executeAsync: (item, e, provider: TableComponent) => {
-            provider.copy(item);
+            // provider.copy(item);
             this._modalService.showConfirmDialog(
               new ConfirmViewModel({
-                title: "Test",
-                message: "abc?",
-                btnAcceptTitle: "changed",
-                acceptCallback: () => {}
+                title: "Copy cái này nha !!!",
+                message: "Ừm nè !",
+                btnAcceptTitle: "Không đâu =((",
+                acceptCallback: () => {
+                  let element = provider.items;
+                  element.unshift(item);
+                }
               })
             );
           }
