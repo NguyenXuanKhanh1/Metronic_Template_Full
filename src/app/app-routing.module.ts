@@ -7,11 +7,11 @@ import { DashboardFakeComponent } from './demo/dashboard-fake/dashboard-fake.com
 
 const menuTabs: MenuTab[] = [
   {
-    role: 'Admin',
+    role: 'CMC',
     items: [
       {
         label: 'Dashboard',
-        icon: 'fa fa-pie-chart ',
+        icon: 'fa fa-search ',
         children: [
           { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'fa fa-pie-chart' }
         ]
@@ -25,7 +25,7 @@ const menuTabs: MenuTab[] = [
         ]
       },
       {
-        label: 'Validation',
+        label: 'Validation 2',
         icon: 'fa fa-twitter',
         children: [
           { state: 'validation', name: 'Validation', type: 'link', icon: 'fa fa-calendar-check-o' }

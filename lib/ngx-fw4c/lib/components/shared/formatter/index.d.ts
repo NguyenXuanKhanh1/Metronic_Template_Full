@@ -7,3 +7,5 @@ export * from './number.pipe';
 export * from './oembed-video.pipe';
 export * from './safe.pipe';
 export * from './time.pipe';
+export * from './kb.pipe';
+export * from './file.pipe';

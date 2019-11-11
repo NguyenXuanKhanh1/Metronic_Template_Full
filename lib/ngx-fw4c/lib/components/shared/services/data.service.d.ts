@@ -5,6 +5,7 @@ export declare class DataService {
     private _sanitizer;
     constructor(_sanitizer: DomSanitizer);
     cloneItem(item: any): any;
+    cloneItems(items: any[], id?: boolean): any;
     transformToSafeHtml(input: string): SafeHtml;
     initDebounceTime(time?: number): Subject<any>;
     removeHTML(str: string): string;

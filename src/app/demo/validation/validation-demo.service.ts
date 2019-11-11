@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { ValidationRuleResponse } from 'ngx-fw4c';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,4 +17,11 @@ export class ValidationDemoService {
   checkMail(mail): boolean{
     return this.regex.test(mail);
   }  
+
+  public check(email: string): Observable<ValidationRuleResponse> {
+    return of(new ValidationRuleResponse({
+      status: email == 'admin@test.com',
+      message:' Error from server'
+    })).pipe(delay(500));
+  }
 }

@@ -26,6 +26,7 @@
     "@ckeditor/ckeditor5-angular": "^1.1.0",
     "@ckeditor/ckeditor5-build-classic": "^15.0.0",
     "@ng-select/ng-select": "^3.3.0",
+    "@swimlane/ngx-dnd": "^8.1.0",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",
     "ng-click-outside": "^5.1.1",

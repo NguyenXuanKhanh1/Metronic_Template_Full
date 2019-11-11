@@ -26,11 +26,13 @@ export class DashboardFakeComponent implements OnInit {
   @ViewChild("tableTemplate", { static: true }) public tableTemplate: TableComponent;
   public option: TableOption;
 
+  @ViewChild("detailTemplate", {static: true}) public datailTemplate: TemplateRef<any>;
+
   constructor(
     private _modalService: ModalService,
     private _dataService: DataService,
     private _fakeService: DashboardFakeService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initTable();
@@ -72,14 +74,29 @@ export class DashboardFakeComponent implements OnInit {
           title: () => "Copy",
           executeAsync: (items, e, provider: TableComponent) => {
             console.log(provider.selectedItems);
-            let copyItems = provider.selectedItems;
-            copyItems.forEach(element => {
-              // provider.copy(element);
-              let elements = provider.items;
-              elements.unshift(element);
-              console.log(provider.items);
-            });
-            // this.tableTemplate.reload(true);
+            let selectedItems = provider.selectedItems;
+            let element = provider.items;
+            if (selectedItems.length === 1) {
+              element.unshift(selectedItems[0]);
+            } else {
+              for (let i = 0; i < selectedItems.length - 1; i++) {
+                for (let j = i + 1; j < selectedItems.length; j++) {
+                  if (element.indexOf(selectedItems[i]) > element.indexOf(selectedItems[j])) {
+                    let temp = selectedItems[i];
+                    selectedItems[i] = selectedItems[j];
+                    selectedItems[j] = temp;
+                  }
+                }
+              }
+              for (let index = selectedItems.length - 1; index >= 0; index--) {
+                element.unshift(selectedItems[index]);
+              }
+            }
+            // copyItems.forEach(element => {
+            //   let elements = provider.items;
+            //   elements.unshift(element);
+            //   console.log(provider.items);
+            // });
           }
         }
       ],
@@ -129,7 +146,7 @@ export class DashboardFakeComponent implements OnInit {
           type: TableConstant.ActionType.Toolbar,
           icon: "fa fa-refresh",
           title: () => "Refresh",
-          executeAsync: () => {}
+          executeAsync: () => { }
         }
       ],
       inlineEdit: true,

@@ -1,5 +1,5 @@
-import { MockData } from '../models';
-export declare class FileViewModel {
+import { MockData, Audit } from '../models';
+export declare class FileViewModel extends Audit {
     id?: string;
     name?: string;
     src?: string;
@@ -17,6 +17,7 @@ export declare class FileResponse {
     code?: string;
     status?: boolean;
     message?: string;
+    totalRecords?: number;
     items: FileViewModel[];
     constructor(init?: Partial<FileResponse>);
 }

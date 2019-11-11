@@ -1,4 +1,5 @@
 <c-card>
+  <c-viewer [uploadIcon]="'fa fa-search'" [uploadTitle]="'Upload'"></c-viewer>
     <div #formRef>
         <label class="col-xs-12 col-md-12 p-0">Email</label>
         <input validation-name="Mail" [(ngModel)]="data" />
@@ -9,5 +10,5 @@
               <h4>{{item.name}}</h4>
             </ng-template> 
     </c-table>
-    <button >Submit</button>
+    <button (click)="checkVal()">Submit</button>
 </c-card>

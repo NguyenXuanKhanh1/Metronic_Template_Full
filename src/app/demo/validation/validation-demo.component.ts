@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, TemplateRef } from '@angular/core';
-import { ValidationService, ValidationOption, RequiredValidationAction, CustomValidationAction, ClientValidator, TableOption, TableComponent, TemplateViewModel, ConfirmViewModel, TableConstant, TableMode, TableColumnType, ModalService } from 'ngx-fw4c';
+import { Component, ViewChild, ElementRef, AfterViewInit, TemplateRef, OnChanges } from '@angular/core';
+import { ValidationService, ValidationOption, RequiredValidationRule, CustomValidationRule, ClientValidator, TableOption, TableComponent, TemplateViewModel, ConfirmViewModel, TableConstant, TableMode, TableColumnType, ModalService, TableAction, ValidationRuleResponse } from 'ngx-fw4c';
 import { of } from 'rxjs';
 import { ButtonDemoComponent } from '..';
 import { ValidationDemoService } from './validation-demo.service';
@@ -9,7 +9,10 @@ import { ValidationDemoService } from './validation-demo.service';
   templateUrl: './validation-demo.component.html'
 })
 
-export class ValidationDemoComponent implements AfterViewInit {
+export class ValidationDemoComponent implements OnChanges {
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    throw new Error("Method not implemented.");
+  }
   public data: string;
   @ViewChild('imageTemplate', { static: true }) public imageTemplate: TemplateRef<any>;
   @ViewChild("tableTemplate", { static: true }) public tableTemplate: TableComponent;
@@ -28,8 +31,7 @@ export class ValidationDemoComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initValidations();
-    
+    this.initValidations();    
   }
 
   private initValidations(): void {
@@ -37,11 +39,13 @@ export class ValidationDemoComponent implements AfterViewInit {
       new ValidationOption({
         validationName: 'Mail',
         valueResolver: () => this.data,
-        actions: [
-          new RequiredValidationAction(),
-          new CustomValidationAction((payload, value) => {
-            if (this._checkMailService.checkMail(value)===true) return of(true);
-            return of(value == 'email');
+        rules: [
+          new RequiredValidationRule(),
+          new CustomValidationRule((value, payload) => {
+            
+            return of(new ValidationRuleResponse({
+              status:value == 'email'
+            }));
           }, () => 'Giá trị nhập vào phải là email')
         ]
       })
@@ -56,14 +60,15 @@ export class ValidationDemoComponent implements AfterViewInit {
   }
 
   private initTable(): void { 
-    this.option = new TableOption({
+    this.option = new TableOption(
+      {
       topButtons:[
         {
           icon: "fa fa-copy",
           customClass: "danger",
           title: () => "Copy",
           executeAsync: (items, e, provider: TableComponent) => {
-            let selectedItems = provider.selectedItems;
+            let selectedItems = this.tableTemplate.selectedItems;
             console.log(selectedItems);
           }
         }
@@ -110,6 +115,7 @@ export class ValidationDemoComponent implements AfterViewInit {
             );
           }
         },
+        
         {
           type: TableConstant.ActionType.Toolbar,
           icon: "fa fa-refresh",
@@ -117,8 +123,18 @@ export class ValidationDemoComponent implements AfterViewInit {
           executeAsync: () => { }
         }
       ],
+      // paging: true,
       inlineEdit: true,
-      mode: TableMode.full,
+      mode: TableMode.compact,
+      // selectedItems: this.tableTemplate.selectedItems,
+      // selectedItems: [
+      //   {
+      //     executeAsync: () => {
+      //       let array = [];
+
+      //     }
+      //   }
+      // ],
       searchFields: ["name"],
       mainColumns: [
         {
@@ -135,10 +151,26 @@ export class ValidationDemoComponent implements AfterViewInit {
         }
       ],
       serviceProvider: {
-        searchAsync: request => {
+        searchAsync: request => {          
           return this._checkMailService.getEmail(request);
         }
       }
     });
   }
+  checkVal(){
+    if(this.initValidations && !this.checkEmpty(this.tableTemplate.selectedItems)){
+      console.log('done');
+    }
+    else {
+      console.log('undone');
+    }
+  }
+
+  checkEmpty(array: any[]){
+    if(array.length === 0){
+      return true;
+    }
+    else return false;
+  }
+
 }

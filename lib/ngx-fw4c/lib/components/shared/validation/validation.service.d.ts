@@ -1,13 +1,13 @@
 import { RendererFactory2, EventEmitter } from '@angular/core';
-import { ValidationOption, ValidationAction, ClientValidator, SummaryError } from './validation.model';
-import { ValidationRule } from './validation.rule';
+import { ValidationOption, ClientValidator, SummaryError, ValidationRule } from './validation.model';
 import { Observable } from 'rxjs';
 import { DataService, ActionService } from '../services';
+import { ValidationProvider } from './validation.provider';
 export declare class ValidationService {
     protected rendererFactory: RendererFactory2;
+    protected validationProvider: ValidationProvider;
     private _dataService;
     private _actionService;
-    private validationRule;
     onDestroy: EventEmitter<void>;
     private elements;
     private validator;
@@ -18,7 +18,7 @@ export declare class ValidationService {
     private relatedProviders;
     private subscriptions;
     private virtualValidationOptions;
-    constructor(rendererFactory: RendererFactory2, _dataService: DataService, _actionService: ActionService, validationRule: ValidationRule);
+    constructor(rendererFactory: RendererFactory2, validationProvider: ValidationProvider, _dataService: DataService, _actionService: ActionService);
     ngOnDestroy(): void;
     init(model: {
         validator: ClientValidator;
@@ -26,11 +26,12 @@ export declare class ValidationService {
     updateAsync(relatedProvidersToRegister?: ValidationService[]): void;
     executeAsync(validCallback: (errors?: SummaryError[]) => any, invalidCallback?: (errors?: SummaryError[]) => any): Observable<boolean>;
     isValid(show?: boolean, focus?: boolean): boolean;
-    retrieveSummaryErrors(): Observable<SummaryError[]>;
+    handleErrors(callback?: (response: SummaryError[]) => void): void;
     commit(callback?: Function): Observable<boolean>;
-    setElementError(element: Element, action: ValidationAction, option: ValidationOption): string;
-    clearErrorItemElement(element: any, action: ValidationAction): void;
+    setElementError(element: Element, action: ValidationRule, option: ValidationOption): string;
+    clearErrorItemElement(element: any, action: ValidationRule): void;
     validateElement(element: any, option: ValidationOption): Observable<ValidationOption>;
+    private retrieveSummaryErrors;
     private findElementOption;
     private findErrorItemElement;
     private findDynamicSequenceId;

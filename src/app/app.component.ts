@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, AfterViewInit, ElementRef } from '@angular/core';
-import { AuthenticationLoginResponse, AggregatorService, BaseTemplate, ActionService, SettingService, ModalService, ValidationOption, RequiredValidationAction, ValidationService, ClientValidator } from 'ngx-fw4c';
+import { AuthenticationLoginResponse, AggregatorService, BaseTemplate, ActionService, SettingService, ModalService, ValidationOption, RequiredValidationRule, ValidationService, ClientValidator } from 'ngx-fw4c';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
