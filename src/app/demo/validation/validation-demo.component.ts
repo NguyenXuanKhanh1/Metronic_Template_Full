@@ -41,8 +41,7 @@ export class ValidationDemoComponent implements OnChanges {
         valueResolver: () => this.data,
         rules: [
           new RequiredValidationRule(),
-          new CustomValidationRule((value, payload) => {
-            
+          new CustomValidationRule((value, payload) => {            
             return of(new ValidationRuleResponse({
               status:value == 'email'
             }));
