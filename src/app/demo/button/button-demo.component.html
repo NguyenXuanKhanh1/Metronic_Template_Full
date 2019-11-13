@@ -1,3 +1,141 @@
 <c-card>
-    This is button demo
+  <div #formRef>
+    <form #formSignIn="ngForm">
+      <div class="form-group">
+        <label for="Name">Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Name"
+          id="Name"
+          [(ngModel)]="item.FormName"
+          name="FormName"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Description:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Description"
+          id="Description"
+          [(ngModel)]="item.FormDescription"
+          name="FormDescription"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Tag:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Tag"
+          id="Tag"
+          [(ngModel)]="item.FormTag"
+          name="FormTag"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Url:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="URL"
+          id="URL"
+          [(ngModel)]="item.FormUrl"
+          name="FormUrl"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Protocol:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Protocol"
+          id="Protocol"
+          [(ngModel)]="item.FormProtocol"
+          name="FormProtocol"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Host:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Host"
+          id="Host"
+          [(ngModel)]="item.FormHost"
+          name="FormHost"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Port:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Port"
+          id="Port"
+          [(ngModel)]="item.FormPort"
+          name="FormPort"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Path:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Path"
+          id="Path"
+          [(ngModel)]="item.FormPath"
+          name="FormPath"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Retries:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Retries"
+          id="Retries"
+          [(ngModel)]="item.FormRetries"
+          name="FormRetries"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Connect timeout:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Connect"
+          id="Connect"
+          [(ngModel)]="item.FormConnect"
+          name="FormConnect"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Write timeout:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Write"
+          id="Write"
+          [(ngModel)]="item.FormWrite"
+          name="FormWrite"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Name">Read timeout:</label>
+        <input
+          type="text"
+          class="form-control"
+          validation-name="Read"
+          id="Read"
+          [(ngModel)]="item.FormRead"
+          name="FormRead"
+        />
+      </div>
+      <button type="button" class="btn btn-primary" (click)="postService()">
+        Submit
+      </button>
+    </form>
+  </div>
 </c-card>
