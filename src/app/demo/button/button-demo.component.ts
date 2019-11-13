@@ -40,6 +40,8 @@ export class ButtonDemoComponent implements AfterViewInit {
 
   public callback(): Observable<any> {
 //todo save
+    console.log(this.item);
+    // this._service.postService(this.item).subscribe();
     return of({name: 'hieunt'});
   }
 
@@ -160,9 +162,5 @@ export class ButtonDemoComponent implements AfterViewInit {
       payloadRef: () => this.item
     });
     this._validationService.init({ validator });
-  }
-
-  postService() {
-    this._service.postService().subscribe();
   }
 }

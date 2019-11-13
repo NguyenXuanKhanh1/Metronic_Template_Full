@@ -20,7 +20,7 @@ export class ButtonService {
   // regex =/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
   url = "http://192.168.66.49:8001/services";
   constructor(private http: HttpClient) {}
-  public postService(): Observable<any> {
+  public postService(data: any): Observable<any> {
     return this.http.post(this.url, this.data, httpOptions);
   }
   public validateNumber(number: string): Observable<ValidationRuleResponse>{
