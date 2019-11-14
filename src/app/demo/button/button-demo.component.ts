@@ -30,37 +30,51 @@ export class ButtonDemoComponent implements AfterViewInit {
     private _validationService: ValidationService
   ) {}
 
+  ngOnInit() {
+    this.item.read_timeout = 60000;
+    this.item.write_timeout = 60000;
+    this.item.connect_timeout = 60000;
+    this.item.retries = 5;
+  }
+
   ngAfterViewInit() {
     this.initValidations();
   }
 
   public isValid(): boolean {
-    return true;
+    if(this._validationService.isValid(false, true)){
+      return true;
+    }
+    else return false;
   }
 
   public callback(): Observable<any> {
 //todo save
-    console.log(this.item);
-    // this._service.postService(this.item).subscribe();
-    return of({name: 'hieunt'});
+    // for(let element in this.item){
+    //   if(this.item[element] ==="") {
+    //     delete this.item[element];
+    //   }
+    // }
+    // console.log(this.item);
+    return of(this._service.postService(this.item).subscribe(data => data));
   }
 
   private initValidations(): void {
     var options = [
       new ValidationOption({
-        validationName: "Name",
-        valueResolver: () => this.item.FormName,
+        validationName: 'Name',
+        valueResolver: () => this.item.name,
+        relevantFields: () => ['Port', 'Host'],
         rules: [
           new RequiredValidationRule(),
-          new CustomValidationRule((value, payload) => {
-            debugger;
+          new CustomValidationRule((value) => {
             return this._service.validateString(value);
           })
         ]
       }),
       new ValidationOption({
         validationName: "Tag",
-        valueResolver: () => this.item.FormTag,
+        valueResolver: () => this.item.tags,
         rules: [
           new CustomValidationRule((value, payload) => {
             return this._service.validateString(value);
@@ -69,8 +83,21 @@ export class ButtonDemoComponent implements AfterViewInit {
       }),
       new ValidationOption({
         validationName: "URL",
-        valueResolver: () => this.item.FormURL,
-        payloadRef: () => this.item.FormPath,
+        // relevantFields: () => ['Path'],
+        valueResolver: () => this.item.url,
+        rules: [
+          new CustomValidationRule(value => {
+            return (
+              this._service.validateString(value) &&
+              this._service.validateURL(value)
+            );
+          })
+        ]
+      }),
+      new ValidationOption({
+        validationName: 'Path',
+        relevantFields: () => ['url'],
+        valueResolver: () => this.item.path,
         rules: [
           new CustomValidationRule(value => {
             return (
@@ -82,8 +109,9 @@ export class ButtonDemoComponent implements AfterViewInit {
       }),
       new ValidationOption({
         validationName: "Protocol",
-        valueResolver: () => this.item.FormProtocol,
+        valueResolver: () => this.item.protocol,
         rules: [
+          // grpc, grpcs, http, https, tcp, tls
           new CustomValidationRule(value => {
             return this._service.validateString(value);
           })
@@ -91,8 +119,7 @@ export class ButtonDemoComponent implements AfterViewInit {
       }),
       new ValidationOption({
         validationName: "Path",
-        valueResolver: () => this.item.FormPath,
-        payloadRef: () => this.item.FormURL,
+        valueResolver: () => this.item.path,
         rules: [
           new RequiredValidationRule(),
           new CustomValidationRule((value, payload) => {
@@ -102,59 +129,25 @@ export class ButtonDemoComponent implements AfterViewInit {
       }),
       new ValidationOption({
         validationName: "Host",
-        valueResolver: () => this.item.FormHost,
+        valueResolver: () => this.item.host,
         rules: [
           new RequiredValidationRule(),
-          new CustomValidationRule((value, payload) => {
+          new CustomValidationRule((value, payload) => {           
             return this._service.validateString(value);
-          })
+          }),
         ]
       }),
       new ValidationOption({
         validationName: "Port",
-        valueResolver: () => this.item.FormPort,
+        valueResolver: () => this.item.port,
         rules: [
-          new CustomValidationRule((value, payload) => {
-            return this._service.validateNumber(value);
-          })
-        ]
-      }),
-      new ValidationOption({
-        validationName: "Retries",
-        valueResolver: () => this.item.FormRetries,
-        rules: [
-          new CustomValidationRule((value, payload) => {
+          new RequiredValidationRule(),
+          new CustomValidationRule((value, payload) => {           
             return this._service.validateString(value);
-          })
+          }),
         ]
       }),
-      new ValidationOption({
-        validationName: "Connect",
-        valueResolver: () => this.item.FormConnect,
-        rules: [
-          new CustomValidationRule((value, payload) => {
-            return this._service.validateNumber(value);
-          })
-        ]
-      }),
-      new ValidationOption({
-        validationName: "Write",
-        valueResolver: () => this.item.FormWrite,
-        rules: [
-          new CustomValidationRule((value, payload) => {
-            return this._service.validateNumber(value);
-          })
-        ]
-      }),
-      new ValidationOption({
-        validationName: "Read",
-        valueResolver: () => this.item.FormRead,
-        rules: [
-          new CustomValidationRule((value, payload) => {
-            return this._service.validateNumber(value);
-          })
-        ]
-      })
+      
     ];
     var validator = new ClientValidator({
       formRef: this.formRef,

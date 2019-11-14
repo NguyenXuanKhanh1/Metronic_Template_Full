@@ -1,33 +1,45 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { TableComponent, TableOption, ModalService, DataService, TemplateViewModel, ConfirmViewModel, TableConstant, TableMode, TableColumnType } from 'ngx-fw4c';
-import { ButtonDemoComponent } from '..';
-import { ServiceManagementService } from './service-management.service';
+import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import {
+  TableComponent,
+  TableOption,
+  ModalService,
+  DataService,
+  TemplateViewModel,
+  ConfirmViewModel,
+  TableConstant,
+  TableMode,
+  TableColumnType
+} from "ngx-fw4c";
+import { ButtonDemoComponent } from "..";
+import { ServiceManagementService } from "./service-management.service";
+import { PostServiceComponent } from "../post-service/post-service.component";
 
 @Component({
-  selector: 'app-service-management',
-  templateUrl: './service-management.component.html',
-  styleUrls: ['./service-management.component.scss']
+  selector: "app-service-management",
+  templateUrl: "./service-management.component.html",
+  styleUrls: ["./service-management.component.scss"]
 })
 export class ServiceManagementComponent implements OnInit {
   @ViewChild("imageTemplate", { static: true })
   public imageTemplate: TemplateRef<any>;
-  @ViewChild("tableTemplate", { static: true }) public tableTemplate: TableComponent;
+  @ViewChild("tableTemplate", { static: true })
+  public tableTemplate: TableComponent;
   public option: TableOption;
 
-  @ViewChild("detailTemplate", {static: true}) public datailTemplate: TemplateRef<any>;
+  @ViewChild("detailTemplate", { static: true })
+  public datailTemplate: TemplateRef<any>;
 
   constructor(
     private _modalService: ModalService,
     private _dataService: DataService,
     private _serviceManagement: ServiceManagementService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.initTable();
   }
 
   private initTable(): void {
-
     this.option = new TableOption({
       topButtons: [
         {
@@ -37,8 +49,12 @@ export class ServiceManagementComponent implements OnInit {
           executeAsync: item => {
             this._modalService.showTemplateDialog(
               new TemplateViewModel({
+                customSize: "modal-lg",
                 template: ButtonDemoComponent,
-                data: item
+                acceptCallback: (response, provider) => {
+                  // debugger;
+                }
+                // ignoreBackdropClick: true
               })
             );
           }
@@ -69,7 +85,10 @@ export class ServiceManagementComponent implements OnInit {
             } else {
               for (let i = 0; i < selectedItems.length - 1; i++) {
                 for (let j = i + 1; j < selectedItems.length; j++) {
-                  if (element.indexOf(selectedItems[i]) > element.indexOf(selectedItems[j])) {
+                  if (
+                    element.indexOf(selectedItems[i]) >
+                    element.indexOf(selectedItems[j])
+                  ) {
                     let temp = selectedItems[i];
                     selectedItems[i] = selectedItems[j];
                     selectedItems[j] = temp;
@@ -129,7 +148,7 @@ export class ServiceManagementComponent implements OnInit {
           type: TableConstant.ActionType.Toolbar,
           icon: "fa fa-refresh",
           title: () => "Refresh",
-          executeAsync: () => { }
+          executeAsync: () => {}
         }
       ],
       inlineEdit: true,
@@ -138,8 +157,26 @@ export class ServiceManagementComponent implements OnInit {
       mainColumns: [
         {
           type: TableColumnType.String,
+          title: () => "Name",
+          valueRef: () => "name",
+          allowFilter: false
+        },
+        {
+          type: TableColumnType.String,
           title: () => "Host",
           valueRef: () => "host",
+          allowFilter: false
+        },
+        {
+          type: TableColumnType.String,
+          title: () => "Tag",
+          valueRef: () => "tag",
+          allowFilter: false
+        },
+        {
+          type: TableColumnType.Date,
+          title: () => "Create",
+          valueRef: () => "updated_at",
           allowFilter: false
         }
       ],

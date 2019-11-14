@@ -3,13 +3,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DemoModule } from './demo';
-// import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -17,7 +16,7 @@ import { DemoModule } from './demo';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DemoModule,
+    DemoModule
   ],
   exports: [
     DemoModule

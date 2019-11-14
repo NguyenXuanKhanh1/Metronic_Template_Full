@@ -8,6 +8,7 @@ import { HttpClient } from "@angular/common/http";
 export class DashboardFakeService{
   constructor(private http: HttpClient) {}
   url = 'http://www.mocky.io/v2/5dc3cc723000000d523475cf';
+  // url = 'http://192.168.110.112:8001/services';
 
   getClub(request): Observable<any>{
 

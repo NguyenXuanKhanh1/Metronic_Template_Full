@@ -18,9 +18,15 @@ export class ValidationDemoService {
     return this.regex.test(mail);
   }  
 
+  // public check(email: string): ValidationRuleResponse {
+  //   return new ValidationRuleResponse({
+  //     status: this.regex.test(email),
+  //     message:' Error from server'
+  //   });
+  // }
   public check(email: string): Observable<ValidationRuleResponse> {
     return of(new ValidationRuleResponse({
-      status: email == 'admin@test.com',
+      status: this.regex.test(email),
       message:' Error from server'
     })).pipe(delay(500));
   }

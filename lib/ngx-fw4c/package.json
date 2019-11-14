@@ -17,7 +17,9 @@
     "ng-click-outside": "^5.1.1",
     "ng2-currency-mask": "^5.3.1",
     "ngx-pipes": "^2.6.0",
-    "ngx-image-cropper": "^2.0.2"
+    "ngx-image-cropper": "^2.0.2",
+    "ngx-chips": "^2.1.0",
+    "node-sass": "^4.13.0"
   },
   "dependencies": {
     "@angular/animations": "^8.2.11",
@@ -41,7 +43,9 @@
     "ng-click-outside": "^5.1.1",
     "ng2-currency-mask": "^5.3.1",
     "ngx-pipes": "^2.6.0",
-    "ngx-image-cropper": "^2.0.2"
+    "ngx-image-cropper": "^2.0.2",
+    "ngx-chips": "^2.1.0",
+    "node-sass": "^4.13.0"
   },
   "main": "bundles/ngx-fw4c.umd.js",
   "module": "fesm5/ngx-fw4c.js",

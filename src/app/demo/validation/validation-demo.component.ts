@@ -3,17 +3,16 @@ import { ValidationService, ValidationOption, RequiredValidationRule, CustomVali
 import { of } from 'rxjs';
 import { ButtonDemoComponent } from '..';
 import { ValidationDemoService } from './validation-demo.service';
+import { ReactiveFormsModule, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'validation-demo',
   templateUrl: './validation-demo.component.html'
 })
 
-export class ValidationDemoComponent implements OnChanges {
-  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    throw new Error("Method not implemented.");
-  }
+export class ValidationDemoComponent implements AfterViewInit {
   public data: string;
+  public items: any[] = [];
   @ViewChild('imageTemplate', { static: true }) public imageTemplate: TemplateRef<any>;
   @ViewChild("tableTemplate", { static: true }) public tableTemplate: TableComponent;
   public option: TableOption;
@@ -23,7 +22,8 @@ export class ValidationDemoComponent implements OnChanges {
     private _validationService: ValidationService,
     private _modalService: ModalService,
     private _checkMailService: ValidationDemoService,
-  ) { }
+  ) {}
+
 
   ngOnInit(): void {
     this.initTable();    
@@ -37,14 +37,16 @@ export class ValidationDemoComponent implements OnChanges {
   private initValidations(): void {
     var options = [
       new ValidationOption({
+        dynamic: true,
         validationName: 'Mail',
         valueResolver: () => this.data,
         rules: [
           new RequiredValidationRule(),
-          new CustomValidationRule((value, payload) => {            
+          new CustomValidationRule((value, payload) => {
             return of(new ValidationRuleResponse({
-              status:value == 'email'
-            }));
+              status: value == 'email',
+              message:' Error from server'
+            }))
           }, () => 'Giá trị nhập vào phải là email')
         ]
       })
@@ -100,7 +102,6 @@ export class ValidationDemoComponent implements OnChanges {
         {
           icon: "fa fa-search",
           executeAsync: (item, e, provider: TableComponent) => {
-            // provider.copy(item);
             this._modalService.showConfirmDialog(
               new ConfirmViewModel({
                 title: "Copy cái này nha !!!",
@@ -122,18 +123,8 @@ export class ValidationDemoComponent implements OnChanges {
           executeAsync: () => { }
         }
       ],
-      // paging: true,
       inlineEdit: true,
       mode: TableMode.compact,
-      // selectedItems: this.tableTemplate.selectedItems,
-      // selectedItems: [
-      //   {
-      //     executeAsync: () => {
-      //       let array = [];
-
-      //     }
-      //   }
-      // ],
       searchFields: ["name"],
       mainColumns: [
         {
@@ -170,6 +161,17 @@ export class ValidationDemoComponent implements OnChanges {
       return true;
     }
     else return false;
+  }
+
+  addEmail(){
+    this.items.push('');
+    this._validationService.updateAsync();
+  }
+
+  public removeEmail(index): void{
+    console.log(index);
+    this.items.splice(this.items[index],1);
+    this._validationService.updateAsync();
   }
 
 }

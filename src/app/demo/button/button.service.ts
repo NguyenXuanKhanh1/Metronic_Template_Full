@@ -12,16 +12,13 @@ const httpOptions = {
   providedIn: "root"
 })
 export class ButtonService {
-  data= {
-    "host": "nxkhanh-test",
-    "name": "test-nxkhanh"
-  };
 
-  // regex =/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
   url = "http://192.168.66.49:8001/services";
+  // urlPost= 'http://192.168.110.112:8001/services';
+
   constructor(private http: HttpClient) {}
   public postService(data: any): Observable<any> {
-    return this.http.post(this.url, this.data, httpOptions);
+    return this.http.post(this.url, data, httpOptions);
   }
   public validateNumber(number: string): Observable<ValidationRuleResponse>{
     let regex = /[0-9]*$/g;

@@ -14,7 +14,7 @@ export class ServiceManagementService {
     return this.http.get(this.urlGet);
   }
 
-  public PostService(request, data: []): Observable<any>{
+  public PostService(data: []): Observable<any>{
     return this.http.post(this.urlPost, data);
   }
 
