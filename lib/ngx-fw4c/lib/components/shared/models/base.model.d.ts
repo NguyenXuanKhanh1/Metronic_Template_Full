@@ -123,3 +123,13 @@ export declare class Audit {
     lastModifiedBy?: string;
     constructor(init?: Partial<Audit>);
 }
+export declare class TrackingGroup {
+    date: Date;
+    details: TrackingDetail[];
+    constructor(init?: Partial<TrackingGroup>);
+}
+export declare class TrackingDetail {
+    description: string;
+    time: Date;
+    constructor(init?: Partial<TrackingDetail>);
+}

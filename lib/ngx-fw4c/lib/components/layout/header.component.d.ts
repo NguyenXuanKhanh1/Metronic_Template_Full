@@ -15,6 +15,8 @@ export declare class DefaultHeaderComponent {
     notifications: NotificationDetail[];
     logo: string;
     title: string;
+    loading: boolean;
+    filter: string;
     user: UserViewModel;
     isMobile: boolean;
     constructor(layoutService: DefaultLayoutService, router: Router, route: ActivatedRoute, actionService: ActionService, aggregatorService: AggregatorService, authenticationService: AuthenticationService);

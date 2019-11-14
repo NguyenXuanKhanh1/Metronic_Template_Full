@@ -43,7 +43,9 @@ export declare class ValidationOption {
     displayText?: string;
     validationId?: string;
     payloadRef?: () => any;
+    relevantFields: (payload: any) => string[];
     dynamic?: boolean;
+    dirtyCheck: boolean;
     scope?: string;
     errorTargetId?: string;
     errorMessageClass?: string;
@@ -60,6 +62,14 @@ export declare class ClientValidator {
     requiredMessage: string;
     invalidMessage: string;
     constructor(init?: Partial<ClientValidator>);
+}
+export declare class ChangedItem {
+    id?: string;
+    oldValue?: any;
+    value?: any;
+    field?: string;
+    change: boolean;
+    constructor(init?: Partial<ChangedItem>);
 }
 export declare class ValidationConstant {
     static Required: string;

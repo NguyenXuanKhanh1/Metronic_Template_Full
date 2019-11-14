@@ -1,0 +1,66 @@
+<katana-card>
+    <form #formSignIn="ngForm">
+        <div class="form-group">
+          <label for="Name">Name:</label>
+          <input type="text" class="form-control" id="Name" [(ngModel)]="FormName"
+            name="Name">
+        </div>
+        <div class="form-group">
+          <label for="Name">Description:</label>
+          <input type="text" class="form-control" id="Description" [(ngModel)]="FormDescription"
+            name="Description">
+        </div>
+        <div class="form-group">
+          <label for="Name">Tag:</label>
+          <input type="text" class="form-control" id="Tag" [(ngModel)]="FormTag"
+            name="Tag">
+        </div>
+        <div class="form-group">
+          <label for="Name">Url:</label>
+          <input type="text" class="form-control" id="URL" [(ngModel)]="FormUrl"
+            name="URL">
+        </div>
+        <div class="form-group">
+          <label for="Name">Protocol:</label>
+          <input type="text" class="form-control" id="Protocol" [(ngModel)]="FormProtocol"
+            name="Protocol">
+        </div>
+        <div class="form-group">
+          <label for="Name">Host:</label>
+          <input type="text" class="form-control" id="Host" [(ngModel)]="FormHost"
+            name="Host">
+        </div>
+        <div class="form-group">
+          <label for="Name">Port:</label>
+          <input type="text" class="form-control" id="Port" [(ngModel)]="FormPort"
+            name="Port">
+        </div>
+        <div class="form-group">
+          <label for="Name">Path:</label>
+          <input type="text" class="form-control" id="Path" [(ngModel)]="FormPath"
+            name="Path">
+        </div>
+        <div class="form-group">
+          <label for="Name">Retries:</label>
+          <input type="text" class="form-control" id="Retries" [(ngModel)]="FormRetries"
+            name="Retries">
+        </div>
+        <div class="form-group">
+          <label for="Name">Connect timeout:</label>
+          <input type="text" class="form-control" id="Connect" [(ngModel)]="FormConnect"
+            name="Connect">
+        </div>
+        <div class="form-group">
+          <label for="Name">Write timeout:</label>
+          <input type="text" class="form-control" id="Write" [(ngModel)]="FormWrite"
+            name="Write">
+        </div>
+        <div class="form-group">
+          <label for="Name">Read timeout:</label>
+          <input type="text" class="form-control" id="Read" [(ngModel)]="FormRead"
+            name="Read">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="addCourse();"
+          [disabled]="formSignIn.invalid">Choose</button>
+      </form>
+</katana-card>

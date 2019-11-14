@@ -1,14 +1,23 @@
-<c-card>
-  <c-viewer [uploadIcon]="'fa fa-search'" [uploadTitle]="'Upload'"></c-viewer>
-    <div #formRef>
-        <label class="col-xs-12 col-md-12 p-0">Email</label>
-        <input validation-name="Mail" [(ngModel)]="data" />
+<katana-card>
+  <katana-viewer [uploadIcon]="'fa fa-search'" [uploadTitle]="'Upload'"></katana-viewer>
+  <div #formRef>
+    <div *ngFor="let data of items; let i = index">
+      <label class="col-xs-12 col-md-12 p-0">Email</label>
+      <input class="form-control" validation-name="Mail" [(ngModel)]="data" />
+      <button type="button" class="btn btn-success" (click)="removeEmail(i)">
+        Remove email
+      </button>
     </div>
-    <c-table [option]="option" #tableTemplate>
-            <ng-template let-item="item">
-              <img [src]="item.logo" />
-              <h4>{{item.name}}</h4>
-            </ng-template> 
-    </c-table>
-    <button (click)="checkVal()">Submit</button>
-</c-card>
+    <button type="button" class="btn btn-success" (click)="addEmail()">
+      Add email
+    </button>
+    <br /><br />
+  </div>
+  <katana-table [option]="option" #tableTemplate>
+    <ng-template let-item="item">
+      <img [src]="item.logo" />
+      <h4>{{ item.name }}</h4>
+    </ng-template>
+  </katana-table>
+  <button (click)="checkVal()">Submit</button>
+</katana-card>

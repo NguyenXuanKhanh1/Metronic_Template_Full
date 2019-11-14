@@ -1,5 +1,5 @@
 import { RendererFactory2, EventEmitter } from '@angular/core';
-import { ValidationOption, ClientValidator, SummaryError, ValidationRule } from './validation.model';
+import { ValidationOption, ClientValidator, SummaryError, ValidationRule, ChangedItem } from './validation.model';
 import { Observable } from 'rxjs';
 import { DataService, ActionService } from '../services';
 import { ValidationProvider } from './validation.provider';
@@ -18,6 +18,7 @@ export declare class ValidationService {
     private relatedProviders;
     private subscriptions;
     private virtualValidationOptions;
+    private changedItems;
     constructor(rendererFactory: RendererFactory2, validationProvider: ValidationProvider, _dataService: DataService, _actionService: ActionService);
     ngOnDestroy(): void;
     init(model: {
@@ -30,7 +31,9 @@ export declare class ValidationService {
     commit(callback?: Function): Observable<boolean>;
     setElementError(element: Element, action: ValidationRule, option: ValidationOption): string;
     clearErrorItemElement(element: any, action: ValidationRule): void;
+    isDirty(callback?: (items: ChangedItem[]) => void): boolean;
     validateElement(element: any, option: ValidationOption): Observable<ValidationOption>;
+    private validateRelevantFields;
     private retrieveSummaryErrors;
     private findElementOption;
     private findErrorItemElement;
